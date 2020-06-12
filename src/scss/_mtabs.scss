@@ -1,0 +1,18 @@
+
+[data-mpage]
+{
+    display: none;
+
+    &.active
+    {
+        display: block;
+    }
+}
+
+[data-mtabs]
+{
+    &.active
+    {
+        background:#ccc;
+    }
+}
