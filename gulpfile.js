@@ -2,7 +2,7 @@
 const fsio        = require('fs');
 const gulp        = require('gulp');
 const del         = require('del');
-const gulp_sass   = require('gulp-sass');
+const gulp_sass   = require('gulp-sass')(require('sass'));
 const sass_glob   = require('gulp-sass-glob');
 const {series}    = require('gulp');
 const {watch}     = require('gulp');
@@ -61,8 +61,7 @@ function SetBuildType( build_type )
     {
         fsio.mkdirSync(`${build_type}/`);
     }
-    
-} // SetBuildType
+}
 
 
 function build_html()
@@ -105,7 +104,10 @@ function gulp_server()
     gulp.src( `./${PATHs.DEST_HTML}` )
         .pipe(webserver({
             livereload: false,
+            //directoryListing: true,
             open: true,
+            //fallback: `index.html`
+            //path: `/${PATHs.DEST_HTML}index.html`
         }));
 
 } // gulp_server
@@ -126,10 +128,8 @@ function build_watch()
     watch( [ `${PATHs.SRC_HTML}*.twig`, `${PATHs.SRC_HTML}partials/*.twig` ], build_html );
     watch( `${PATHs.SRC_SCRIPTS}`,     build_js );
     watch( `${PATHs.SRC_SCSS}`,        build_sass );
-
-    //gulp_server();
     
-} // build_watch
+} // build_watch_debug
 
 
 function build_watch_debug()
